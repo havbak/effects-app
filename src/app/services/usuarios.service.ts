@@ -5,7 +5,7 @@ import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class UsuariosService {
   http = inject(HttpClient);
   private url = 'https://reqres.in/api';
 
@@ -18,6 +18,20 @@ export class UsuarioService {
       }
     }).pipe(
       map((resp: any) => resp['data'])
+    );
+  }
+
+  getUserById(id: string) {
+    console.log('Get User By Id:', id)
+    return this.http.get(`${this.url}/users/${id}`, {
+      headers: {
+        'x-api-key': 'reqres-free-v1'
+      }
+    }).pipe(
+      map((resp: any) => {
+        console.log(resp);
+        return resp['data'];
+      })
     );
   }
 
